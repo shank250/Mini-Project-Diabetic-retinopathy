@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #0077cc;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        #loading-spinner {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #results {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        #results p {
+            margin: 10px 0;
+            font-size: 1rem;
+            text-align: left;
+        }
+        #results span {
+            font-weight: bold;
+            color: #0077cc;
+        }
+        #error-message {
+            color: red;
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            padding: 10px 0;
+            background: #f1f1f1;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Processing Image</h1>
+    </header>
+
+    <div id="loading-spinner">
+        <div class="spinner"></div>
+        <p>Processing your image, please wait...</p>
+    </div>
+
+    <div id="error-message"></div>
+    
+    <div id="results">
+        <p>Result: <span id="prediction-result">-</span></p>
+        <p>Remedy: <span id="prediction-remedy">-</span></p>
+        <p>Confidence: <span id="prediction-confidence">-</span></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Diabetic Retinopathy Detection at GL Bajaj. All Rights Reserved.</p>
+        <p>Contact us: <a href="mailto:support@example.com">support@diabetic-retinopathy-gl-bajaj.com</a></p>
+    </footer>
+
+    <script>
+        function pollResult(taskId) {
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const resultsDiv = document.getElementById('results');
+            const errorMessage = document.getElementById('error-message');
+
+            const intervalId = setInterval(() => {
+                fetch(`http://localhost:5000/get_result/${taskId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'processing') {
+                        // Still processing; do nothing
+                        return;
+                    }
+
+                    clearInterval(intervalId); // Stop polling
+
+                    loadingSpinner.style.display = 'none';
+                    resultsDiv.style.display = 'block';
+
+                    if (data.error) {
+                        errorMessage.textContent = `Error: ${data.error}`;
+                        return;
+                    }
+
+                    // Display results
+                    document.getElementById('prediction-result').textContent = data.result;
+                    document.getElementById('prediction-remedy').textContent = 'Refer to the remedies list.';
+                    document.getElementById('prediction-confidence').textContent =
+                        (data.confidence * 100).toFixed(2) + '%';
+                })
+                .catch(error => {
+                    clearInterval(intervalId); // Stop polling on error
+                    loadingSpinner.style.display = 'none';
+                    errorMessage.textContent = `Error retrieving results: ${error.message}`;
+                });
+            }, 5000); // Poll every 5 seconds
+        }
+
+        // Get the task ID from local storage and start polling
+        const taskId = localStorage.getItem('taskId');
+        if (!taskId) {
+            alert('No task ID found. Please upload an image first.');
+            window.location.href = 'index.html';
+        } else {
+            pollResult(taskId);
+        }
+    </script>
+</body>
+</html>
