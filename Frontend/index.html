@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Upload an image of a retina to predict the presence of Diabetic Retinopathy using AI technology.">
+    <meta name="keywords" content="Diabetic Retinopathy, Retina Image Upload, AI Diagnosis, Eye Health">
+    <meta name="author" content="Your Name">
+    <meta property="og:title" content="Diabetic Retinopathy Detection">
+    <meta property="og:description" content="AI-powered tool to detect Diabetic Retinopathy. Upload your retina image to get results.">
+    <meta property="og:image" content="example-image-url.jpg">
+    <meta property="og:url" content="http://your-website.com">
+    <meta property="twitter:card" content="summary_large_image">
+    <title>Diabetic Retinopathy Detection</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #0077cc;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        nav {
+            background: #005fa3;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #f9f9f9;
+        }
+        #about {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        #about h2 {
+            color: #0077cc;
+            margin-bottom: 10px;
+        }
+        #about p {
+            text-align: justify;
+            font-size: 1rem;
+            color: #555;
+        }
+        #upload-container {
+            border: 2px dashed #0077cc;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        #upload-icon {
+            font-size: 60px;
+            color: #0077cc;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        #upload-icon:hover {
+            color: #005fa3;
+        }
+        #image-preview {
+            max-width: 100%;
+            margin: 20px 0;
+            display: none;
+            border-radius: 10px;
+        }
+        #error-message {
+            color: red;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        #process-button {
+            background: #0077cc;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+        #process-button:hover {
+            background: #005fa3;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            padding: 10px 0;
+            background: #f1f1f1;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Diabetic Retinopathy Detection</h1>
+    </header>
+
+    <nav>
+        <div>
+            <a href="#about">About</a>
+            <a href="#upload-container">Upload</a>
+        </div>
+        <div>
+            <a href="#">Home</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="about">
+        <h2>About This Tool</h2>
+        <p>
+            Diabetic Retinopathy is a serious eye condition caused by diabetes, leading to damage in the retina. Early detection is crucial 
+            to prevent vision loss. This tool uses advanced AI algorithms to analyze retina images and predict whether Diabetic Retinopathy 
+            is present. Simply upload a clear image of your retina to get started.
+        </p>
+    </section>
+
+    <div id="upload-container">
+        <input type="file" id="file-input" accept="image/*" style="display: none;">
+        <div id="upload-icon" onclick="document.getElementById('file-input').click();">
+            📤
+        </div>
+        <p>Click the icon to upload an image</p>
+    </div>
+
+    <div id="image-container">
+        <img id="image-preview" alt="Uploaded Image Preview">
+    </div>
+
+    <div id="error-message"></div>
+
+    <button id="process-button">Upload and Process</button>
+
+    <footer id="contact">
+        <p>&copy; 2024 Diabetic Retinopathy Detection at G.L. Bajaj. All Rights Reserved.</p>
+        <p>Contact us: <a href="mailto:support@example.com">support@diabetic-retinopathy-gl-bajaj.com</a></p>
+
+    </footer>
+
+    <script>
+        let uploadedFile = null;
+
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            uploadedFile = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const imagePreview = document.getElementById('image-preview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+
+                // Show process button
+                document.getElementById('process-button').style.display = 'block';
+
+                // Reset previous error message
+                document.getElementById('error-message').textContent = '';
+            };
+
+            reader.readAsDataURL(uploadedFile);
+        });
+
+        document.getElementById('process-button').addEventListener('click', function() {
+            if (!uploadedFile) {
+                alert('Please upload an image first');
+                return;
+            }
+
+            const errorMessage = document.getElementById('error-message');
+            const formData = new FormData();
+            formData.append('file', uploadedFile);
+
+            fetch('http://localhost:5000/upload_image', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const taskId = data.task_id;
+
+                // Store task ID in local storage
+                localStorage.setItem('taskId', taskId);
+
+                // Redirect to the processing page
+                window.location.href = 'processing.html';
+            })
+            .catch(error => {
+                errorMessage.textContent = `Upload failed: ${error.message}`;
+            });
+        });
+    </script>
+</body>
+</html>
