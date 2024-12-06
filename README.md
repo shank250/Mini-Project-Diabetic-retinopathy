@@ -1,1 +1,111 @@
-# Mini-Project-Diabetic-retinopathy
+# Diabetic Retinopathy Detection with CNN
+
+This project is a **Diabetic Retinopathy Detection System** that uses a **Convolutional Neural Network (CNN)** to classify retinal images. It provides a simple web-based interface for users to upload retinal images and get predictions on the presence of diabetic retinopathy.
+
+---
+
+## 🏗 **Architecture**
+1. **Machine Learning**:  
+   - A CNN model is built using **TensorFlow** and **Keras** to classify retinal images from the **Messidor dataset**.  
+   - Preprocessing steps include resizing images and normalizing pixel values.  
+   - The model predicts the severity of diabetic retinopathy.  
+
+2. **Backend**:  
+   - The backend is developed using **Flask**, which acts as a bridge between the ML model and the frontend.  
+   - It handles image upload, model inference, and result transmission to the client.
+
+3. **Frontend**:  
+   - The user interface is built with **HTML** and **CSS**.  
+   - Users can upload retinal images and view the classification results.  
+
+---
+
+## 💻 **Tech Stack**
+- **Machine Learning**: TensorFlow, Keras, Python
+- **Backend**: Flask
+- **Frontend**: HTML, CSS
+- **Dataset**: Messidor (Retinal Images)
+
+---
+
+## 📂 **Project Structure**
+```plaintext
+.
+├── model/
+│   ├── cnn_model.py          # Model architecture and training script
+│   ├── saved_model/          # Trained model files
+├── static/
+│   ├── css/                  # CSS stylesheets for frontend
+│   ├── uploads/              # Uploaded images storage
+├── templates/
+│   ├── index.html            # Main frontend HTML file
+├── app.py                    # Flask backend application
+├── requirements.txt          # Python dependencies
+└── README.md                 # Project documentation
+```
+
+---
+
+## 🗂 **Dataset**
+- **Messidor Dataset**:  
+  A publicly available dataset containing retinal images used for detecting diabetic retinopathy.  
+  - Images are preprocessed and resized to fit the CNN input shape.  
+  - Dataset split: 80% training, 20% validation.
+
+---
+
+## 🚀 **Features**
+- Upload retinal images through a user-friendly interface.  
+- Real-time prediction of diabetic retinopathy severity.  
+- Lightweight Flask backend for seamless communication between frontend and ML model.
+
+---
+
+## 🛠 **Setup Instructions**
+1. Clone the repository:  
+   ```bash
+   git clone <repository_url>
+   cd <repository_name>
+   ```
+
+2. Install dependencies:  
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Download the Messidor dataset and preprocess the images using the script in `cnn_model.py`.
+
+4. Train the CNN model:  
+   ```bash
+   python model/cnn_model.py
+   ```
+
+5. Run the Flask application:  
+   ```bash
+   python app.py
+   ```
+
+6. Open your browser and navigate to:  
+   `http://127.0.0.1:5000/`
+
+---
+
+## 🌟 **Future Enhancements**
+- Add additional layers to improve model accuracy.  
+- Implement more sophisticated preprocessing techniques for retinal images.  
+- Host the application on a cloud platform for wider accessibility.  
+
+---
+
+## 🤝 **Contributing**
+Contributions are welcome! Feel free to fork the repository and submit pull requests.
+
+---
+
+## 📜 **License**
+This project is licensed under the MIT License. See `LICENSE` for more details.  
+
+--- 
+
+## 📬 **Contact**
+For questions or suggestions, feel free to reach out via GitHub issues or email.  
