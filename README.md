@@ -33,13 +33,12 @@ This project is a **Diabetic Retinopathy Detection System** that uses a **Convol
 .
 ├── model/
 │   ├── cnn_model.py          # Model architecture and training script
-│   ├── saved_model/          # Trained model files
-├── static/
-│   ├── css/                  # CSS stylesheets for frontend
-│   ├── uploads/              # Uploaded images storage
-├── templates/
+│   ├── model.h5/         # Trained model files
+├── Backend/
+|   ├── app.py                # Flask backend application
+├── Frontend/
 │   ├── index.html            # Main frontend HTML file
-├── app.py                    # Flask backend application
+|   ├── styles.css
 ├── requirements.txt          # Python dependencies
 └── README.md                 # Project documentation
 ```
