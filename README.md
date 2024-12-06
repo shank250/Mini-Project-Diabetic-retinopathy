@@ -63,8 +63,8 @@ This project is a **Diabetic Retinopathy Detection System** that uses a **Convol
 ## 🛠 **Setup Instructions**
 1. Clone the repository:  
    ```bash
-   git clone <repository_url>
-   cd <repository_name>
+   git clone [<repository_url>](https://github.com/shank250/Mini-Project-Diabetic-retinopathy)
+   cd [<repository_name>](https://github.com/shank250/Mini-Project-Diabetic-retinopathy)
    ```
 
 2. Install dependencies:  
