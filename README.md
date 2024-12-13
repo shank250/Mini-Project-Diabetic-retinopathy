@@ -1,6 +1,6 @@
 # Diabetic Retinopathy Detection with CNN
 
-This project is a **Diabetic Retinopathy Detection System** that uses a **Convolutional Neural Network (CNN)** to classify retinal images. It provides a simple web-based interface for users to upload retinal images and get predictions on the presence of diabetic retinopathy.
+This project is a **Diabetic Retinopathy Detection System** that uses a **Convolutional Neural Network (CNN) With Long Range Units and Inception V3** to classify retinal images. It provides a simple web-based interface for users to upload retinal images and get predictions on the presence of diabetic retinopathy.
 
 ---
 
@@ -63,8 +63,8 @@ This project is a **Diabetic Retinopathy Detection System** that uses a **Convol
 ## 🛠 **Setup Instructions**
 1. Clone the repository:  
    ```bash
-   git clone [<repository_url>](https://github.com/shank250/Mini-Project-Diabetic-retinopathy)
-   cd [<repository_name>](https://github.com/shank250/Mini-Project-Diabetic-retinopathy)
+   git clone https://github.com/shank250/Mini-Project-Diabetic-retinopathy
+   cd https://github.com/shank250/Mini-Project-Diabetic-retinopathy
    ```
 
 2. Install dependencies:  
@@ -76,7 +76,7 @@ This project is a **Diabetic Retinopathy Detection System** that uses a **Convol
 
 4. Train the CNN model:  
    ```bash
-   python model/cnn_model.py
+   python model/model.py
    ```
 
 5. Run the Flask application:  
@@ -98,6 +98,12 @@ This project is a **Diabetic Retinopathy Detection System** that uses a **Convol
 
 ## 🤝 **Contributing**
 Contributions are welcome! Feel free to fork the repository and submit pull requests.
+
+---
+
+## 🤝 **Contributing**
+Credits goes to the A deep convolutional neural network for diabetic retinopathy detection via mining local and long‐range dependence
+Xiaoling Luo1, Wei Wang1, Yong Xu, Zhihui Lai3, Xiaopeng Jin4, Bob Zhang5, David Zhang for the reasearch work
 
 ---
 
